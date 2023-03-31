@@ -38,14 +38,30 @@ class AddressBook {
   getAllContacts() {
     return this.contacts;
   }
+
+  findContact(firstName, lastName) {
+    for (let i = 0; i < this.contacts.length; i++) {
+      if (
+        this.contacts[i].firstName === firstName &&
+        this.contacts[i].lastName === lastName
+      ) {
+        return this.contacts[i];
+      }
+    }
+    return null;
+  }
 }
 
-// example usage
-const john = new Contact("khandale", "Pooja", "New York", "8369315555");
-const jane = new Contact("Tony", "roy", "Los Angeles", "45454224945");
+const john = new Contact("Prince", "Praveen", "New York", "8369315555");
+const jane = new Contact("Tony", "Stark", "Los Angeles", "45454224945");
 const book = new AddressBook();
 
 book.addContact(john);
 book.addContact(jane);
 
-console.log(book.getAllContacts());
+const foundContact = book.findContact("Prince", "Praveen");
+if (foundContact) {
+  console.log("Contact Found!");
+} else {
+  console.log("Contact not found");
+}
