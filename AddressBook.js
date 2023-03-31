@@ -55,13 +55,21 @@ class AddressBook {
     return this.contacts.reduce((count, contact) => count + 1, 0);
   }
 
-  filterContactsByCity(city) {
-    return this.contacts.filter((contact) => contact.city === city);
+  getNumberOfContactsByCity() {
+    const contactsByCity = {};
+    this.contacts.forEach((contact) => {
+      if (contactsByCity[contact.city]) {
+        contactsByCity[contact.city]++;
+      } else {
+        contactsByCity[contact.city] = 1;
+      }
+    });
+    return contactsByCity;
   }
 }
 
-const john = new Contact("Prince", "Praveen", "New York", "8369315555");
-const jane = new Contact("Tony", "Stark", "Los Angeles", "45454224945");
+const john = new Contact("khandale", "pooja", "New York", "8369315555");
+const jane = new Contact("Tony", "roy", "Los Angeles", "45454224945");
 const person3 = new Contact("Doctor", "Strange", "New York", "454861213");
 const person4 = new Contact("Bruce", "Banner", "California", "8369315555");
 const book = new AddressBook();
@@ -71,5 +79,7 @@ book.addContact(jane);
 book.addContact(person3);
 book.addContact(person4);
 
-const losAngelesContacts = book.filterContactsByCity("New york");
-console.log(losAngelesContacts);
+const contactsByCity = book.getNumberOfContactsByCity();
+for (const city in contactsByCity) {
+  console.log(`${city}: ${contactsByCity[city]}`);
+}
